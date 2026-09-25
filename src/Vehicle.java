@@ -79,5 +79,15 @@ public abstract class Vehicle implements Rentable {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", pricePerDay=" + pricePerDay +
+                ", available=" + available +
+                '}';
+    }
 }

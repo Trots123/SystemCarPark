@@ -5,24 +5,24 @@ public class CarPark {
 
     List<Vehicle> typecar = new ArrayList<>();
 
+
     List<Customer> customers = new ArrayList<>();
 
-        public void addVehicle (Vehicle vehicle){
+    public void addVehicle(Vehicle vehicle) {
 
-            typecar.add(vehicle);
-        }
+        typecar.add(vehicle);
+    }
 
-        public void removeVehicle (Vehicle vehicle){
+    public void removeVehicle(Vehicle vehicle) {
 
-            typecar.remove(vehicle);
-        }
+        typecar.remove(vehicle);
+    }
 
-        public  void showAllVehicle(){
-            typecar.stream()
-                    .forEach(System.out::println);
-        }
+    public void showAllVehicle() {
+        typecar.forEach(System.out::println);
+    }
 
-    public  Vehicle findById(int id) {
+    public Vehicle findById(int id) {
         return typecar.stream()
                 .filter(n -> n.getId() == id)
                 .findFirst()
@@ -30,17 +30,18 @@ public class CarPark {
     }
 
     public Vehicle findByBrand(String brand) {
-            return typecar.stream()
-                    .filter(n->n.getBrand()==brand)
-                    .findFirst()
-                    .orElse(null);
+        return typecar.stream()
+                .filter(n -> n.getBrand() == brand)
+                .findFirst()
+                .orElse(null);
     }
 
-    public void showAvailableVehicles(){
-            typecar.stream()
-                    .filter(n-> n.getAvailable())
-                    .forEach(System.out::println);
+    public void showAvailableVehicles() {
+        typecar.stream()
+                .filter(n -> n.getAvailable())
+                .forEach(System.out::println);
     }
+
     public void rentVehicle(Customer customer, Vehicle vehicle, int days) {
 
         if (customer.getAge() < 18) {
@@ -56,7 +57,6 @@ public class CarPark {
             System.out.println("Автомобиль недоступен");
             return;
         }
-
 
 
         double price = vehicle.getPricePerDay() * days;
@@ -77,7 +77,9 @@ public class CarPark {
         System.out.println("Автомобиль успешно арендован");
     }
 
-
+    public void addCustomer(Customer cast) {
+        this.customers.add(cast);
+    }
 
 
 }

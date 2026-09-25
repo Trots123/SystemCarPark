@@ -10,9 +10,14 @@ public class RentalService {
 
         CarPark carPark = new CarPark();
 
-        Vehicle car = new Car (1, "BMW", "X3",2012 ,100,true);
-        Vehicle car2 = new Car (2, "BMW", "X5",2017 ,100,true);
-        Vehicle car3 = new Car (3, "BMW", "X1",2014 ,100,true);
+        Vehicle car = new Car(1, "BMW", "X3", 2012, 100, true);
+        Vehicle car2 = new Car(2, "BMW", "X5", 2017, 100, true);
+        Vehicle car3 = new Car(3, "BMW", "X1", 2014, 100, true);
+
+        carPark.addVehicle(car);
+        carPark.addVehicle(car2);
+        carPark.addVehicle(car3);
+
 
         System.out.println("Регистрация пользователя ");
 
@@ -20,7 +25,7 @@ public class RentalService {
         int idsc = scan.nextInt();
 
         System.out.print("Введите свое имя : ");
-        String namesc= scan.nextLine();
+        String namesc = scan.next();
 
         System.out.print("Введите свой возраст : ");
         int agesc = scan.nextInt();
@@ -28,13 +33,9 @@ public class RentalService {
         System.out.print("Какой у вас бюджет ? : ");
         int Balanssc = scan.nextInt();
 
-        Customer cast = new Customer (idsc,namesc,agesc,Balanssc);
 
-
-
-
-
-
+        Customer cast = new Customer(idsc, namesc, agesc, Balanssc);
+        carPark.addCustomer(cast);
 
         System.out.println("Выберете услугу \n" +
                 " 1. Показать все транспортные средства \n" +
@@ -44,78 +45,79 @@ public class RentalService {
                 " 5. Добавить транспортное средство\n" +
                 "6. Выйти");
 
-
-        int s = scan.nextInt();
-        switch (s) {
-            case 1:
-                carPark.showAllVehicle();
-                break;
-
-            case 2:
-                carPark.showAvailableVehicles();
-                break;
-            case 3:
-                System.out.print("Введите ID: ");
-                int id = scan.nextInt();
-
-                Vehicle vehicle = carPark.findById(id);
-
-                if (vehicle != null) {
-                    System.out.println(vehicle);
-                } else {
-                    System.out.println("Транспортное средство не найдено");
-                }
-                break;
-            case 4:
-                System.out.println("Аренда транспортного средства");
-                System.out.print("Введите ID транспортного средства: ");
-                int vehicleId = scan.nextInt();
-
-                Vehicle carParkById = carPark.findById(vehicleId);
-
-                if (carParkById == null) {
-                    System.out.println("Транспортное средство не найдено");
+        boolean ex = true;
+        while (ex) {
+            int s = scan.nextInt();
+            switch (s) {
+                case 1:
+                    carPark.showAllVehicle();
                     break;
-                }
+                case 2:
+                    carPark.showAvailableVehicles();
+                    break;
+                case 3:
+                    System.out.print("Введите ID: ");
+                    int id = scan.nextInt();
 
-                System.out.print("Введите количество дней: ");
-                int days = scan.nextInt();
+                    Vehicle vehicle = carPark.findById(id);
 
-                carPark.rentVehicle(cast, carParkById, days);
+                    if (vehicle != null) {
+                        System.out.println(vehicle);
+                    } else {
+                        System.out.println("Транспортное средство не найдено");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Аренда транспортного средства");
+                    System.out.print("Введите ID транспортного средства: ");
+                    int vehicleId = scan.nextInt();
 
-            case 5:
-                System.out.print("Введите ID: ");
-                int ids = scan.nextInt();
+                    Vehicle carParkById = carPark.findById(vehicleId);
 
-                System.out.print("Введите марку: ");
-                String brand = scan.nextLine();
+                    if (carParkById == null) {
+                        System.out.println("Транспортное средство не найдено");
+                        break;
+                    }
 
-                System.out.print("Введите модель: ");
-                String modelS = scan.nextLine();
+                    System.out.print("Введите количество дней: ");
+                    int days = scan.nextInt();
 
-                System.out.print("Введите модель: ");
-                int yearS = scan.nextInt();
+                    carPark.rentVehicle(cast, carParkById, days);
+                    break;
 
-                System.out.print("Введите цену за день: ");
-                double priceS = scan.nextDouble();
+                case 5:
+                    System.out.print("Введите ID: ");
+                    int ids = scan.nextInt();
 
-                Vehicle carr= new Car (ids, brand,modelS, yearS , (int) priceS, true);
+                    System.out.print("Введите марку: ");
+                    String brand = scan.next();
 
-                carPark.addVehicle(carr);
+                    System.out.print("Введите модель: ");
+                    String modelS = scan.next();
 
-                System.out.println("Автомобиль добавлен");
-                break;
+                    System.out.print("Введите Год выпуска: ");
+                    int yearS = scan.nextInt();
 
-            case 6:
-                System.out.println("Программа завершена");
-                scan.close();
-                return;
+                    System.out.print("Введите цену за день: ");
+                    double priceS = scan.nextDouble();
 
-            default:
-                System.out.println("Неверный пункт меню");
+                    Vehicle carr = new Car(ids, brand, modelS, yearS, (int) priceS, true);
+
+                    carPark.addVehicle(carr);
+
+                    System.out.println("Автомобиль добавлен");
+                    break;
+
+                case 6:
+                    System.out.println("Программа завершена");
+                    ex = false;
+                    break;
+
+                default:
+                    System.out.println("Неверный пункт меню");
+            }
         }
     }
 
 
-}
 }
